@@ -1,7 +1,6 @@
 'use strict';
 
 function titleClickHandler(event){
-  console.log('Link was clicked!');
   event.preventDefault();
   const clickedElement = this;
 
@@ -38,28 +37,22 @@ function titleClickHandler(event){
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list';
+  optArticleTagsSelector = '.post-tags .list',
+  optArticleAuthorSelector = '.post-author';
 
 function generateTitleLinks(customSelector = ''){
-
   let html = '';
-
   /* [DONE] remove contents of titleList */
   const titleList = document.querySelector(optTitleListSelector);
   //console.log(titleList);
-
-
   /* [DONE] for each article */
   const articles = document.querySelectorAll(optArticleSelector + customSelector);
   //console.log(optArticleSelector);
   //console.log(customSelector);
-
   for(let article of articles){
-
     /* [DONE] get the article id */
     const articleId = article.getAttribute('id');
     //console.log(articleId);
-
     /* [DONE] find the title element */
     /* [DONE] get the text from the title element */
     const articleTitle = article.querySelector(optTitleSelector).innerHTML;
@@ -67,7 +60,6 @@ function generateTitleLinks(customSelector = ''){
     /* [DONE] create HTML of the link */
     const linkHTML = '<li><a href="#' + articleId +'"><span>' + articleTitle + '</span></a></li>';
     //console.log(linkHTML);
-
     /* [DONE] insert link into titleList */
     html = html + linkHTML;
   }
@@ -118,7 +110,6 @@ function generateTags(){
 
 generateTags();
 
-
 function tagClickHandler(event){
   /* prevent default action for this event */
   event.preventDefault();
@@ -164,3 +155,16 @@ function addClickListenersToTags(){
 }
 
 addClickListenersToTags();
+
+function generateAuthor(){
+  const articles = document.querySelectorAll(optArticleSelector);
+  for (let article of articles){
+    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    let html = '';
+    let articleAuthor = article.getAttribute('data-author');
+    const authorHTML = `<p class="post-author">${articleAuthor}</p>`;
+    html = html + authorHTML;
+    authorWrapper.innerHTML = html;
+  }
+}
+ generateAuthor();
