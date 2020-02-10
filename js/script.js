@@ -133,7 +133,7 @@ function tagClickHandler(event){
   /* find all tag links with "href" attribute equal to the "href" constant */
   const sameTags = document.querySelectorAll('a[href="' + href + '"]');
   /* START LOOP: for each found tag link */
-    for (let sameTag of sameTags){
+  for (let sameTag of sameTags){
     /* add class active */
     sameTag.classList.add('active');
   /* END LOOP: for each found tag link */
@@ -167,4 +167,4 @@ function generateAuthor(){
     authorWrapper.innerHTML = html;
   }
 }
- generateAuthor();
+generateAuthor();
