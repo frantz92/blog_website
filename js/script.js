@@ -147,7 +147,7 @@ function generateTags(){
     //console.log('3: ', tag);
     //console.log('4: ', allTags[tag]);
     const tagLinkHTML = `<li><a class="${calculateTagsClass(allTags[tag], tagsParams)}" href="#tag-${tag}">${tag}</a></li>`;
-    console.log('tagLinkHTML: ', tagLinkHTML);
+    //console.log('tagLinkHTML: ', tagLinkHTML);
     allTagsHTML += tagLinkHTML;
     //allTagsHTML += tag + '(' + allTags[tag] + ')\n';                          //żadnego <p> czy coś? To jak to jest zapisane w HTML, żeby się odwołaś w CSS? Dlaczego nie działa '\n'?
     //console.log('5: ', allTagsHTML);
