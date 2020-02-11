@@ -78,7 +78,7 @@ body {
 /* Lists */
 .tags a {
   text-decoration: none;
-  color: black;
+  color: $color-dark;
 }
 
 .tags .tag-size-5 {
@@ -113,16 +113,19 @@ body {
 
 .titles a {
   text-decoration: none;
-  color: black;
+  color: $color-dark;
   font-size: 20px;
 }
 
-.list-horizontal {
+.list-horizontal { //dla a osobno
   li  {
     display: inline;
     margin: 0 5px 0 0;
+  }
+
+  a {
     text-decoration: none;
-    color: black;
+    color: $color-dark;
   }
 }
 
