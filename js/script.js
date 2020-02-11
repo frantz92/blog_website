@@ -5,7 +5,9 @@ const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
-  optArticleAuthorSelector = '.post-author';
+  optArticleAuthorSelector = '.post-author',
+  optCloudClassCount = '4',
+  optCloudClassPrefix = 'tag-size-';
   //optTagsListSelector = '.tags.list';
 
 /* Title Click Handler */
@@ -89,6 +91,15 @@ function tagClickHandler(event){
   generateTitleLinks('[data-tags~="' + tag + '"]');
 }
 
+/* Tag Calculate Class */
+function calculateTagsClass(count, params){
+  //console.log(params);
+  //console.log(count);
+  const classNumber = Math.floor( ( (count - params.min) / (params.max - params.min) ) * optCloudClassCount + 1 );
+  const resultTagsClass = optCloudClassPrefix + classNumber;
+  return(resultTagsClass);
+}
+
 /* Tags Generate */
 function generateTags(){
   /* [DONE] create a new variable allTags with an empty object */
@@ -124,24 +135,28 @@ function generateTags(){
   }
   /* [DONE] find list of tags in right column */
   const tagList = document.querySelector('.tags');
-  console.log('1: ', tagList);                                                  //Dlaczego pokazuje finalną listę już przy pierwszym wywołaniu? Wypełnienie jest dopiero w 141 linii.
+  //console.log('1: ', tagList);                                                  //Dlaczego pokazuje finalną listę już przy pierwszym wywołaniu? Wypełnienie jest dopiero w 141 linii.
+  const tagsParams = calculateTagsParams(allTags);
+  //console.log('tagsParams:', tagsParams);
   /* [DONE] create variable for all links HTML code */
   let allTagsHTML = '';
-  console.log('2: ', allTagsHTML);
+  //console.log('2: ', allTagsHTML);
   /* [DONE] START LOOP: for each tag in allTags: */
   for(let tag in allTags){
     /* [DONE] generate code of a link and add it to allTagsHTML */
-    console.log('3: ', tag);
-    console.log('4: ', allTags[tag]);
-    allTagsHTML += tag + '(' + allTags[tag] + ') ';
+    //console.log('3: ', tag);
+    //console.log('4: ', allTags[tag]);
+    const tagLinkHTML = `<li><a class="${calculateTagsClass(allTags[tag], tagsParams)}" href="#tag-${tag}">${tag}</a></li>`;
+    console.log('tagLinkHTML: ', tagLinkHTML);
+    allTagsHTML += tagLinkHTML;
     //allTagsHTML += tag + '(' + allTags[tag] + ')\n';                          //żadnego <p> czy coś? To jak to jest zapisane w HTML, żeby się odwołaś w CSS? Dlaczego nie działa '\n'?
-    console.log('5: ', allTagsHTML);
+    //console.log('5: ', allTagsHTML);
   }
   /* [IN PROGRESS] add html from allTagsHTML to tagList */
   tagList.innerHTML = allTagsHTML;
-  console.log('6: ', tagList);
 }                                                                               //Dlaczego mam na końcu listę tekstu a nie linków (niebieskie, podkreślone)?
 
+calculateTagsParams();
 generateTags();
 
 /* Tag Click Listener */
@@ -178,4 +193,19 @@ generateAuthor();
 const links = document.querySelectorAll(optArticleAuthorSelector);
 for(let link of links){
   link.addEventListener('click', authorClickHandler);
+}
+
+/* [IN PROGRESS] Tags Params Calculate */
+function calculateTagsParams(tags){
+  const params = {max:0, min:999999};
+  for (let tag in tags){
+    // console.log(tag + ' is used ' + tags[tag] + ' times');
+    if(params.max < tags[tag]){
+      params.max = tags[tag];
+    }
+    if(params.min > tags[tag]){
+      params.min = tags[tag];
+    }
+  }
+  return params;
 }
