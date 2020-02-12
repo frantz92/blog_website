@@ -121,6 +121,7 @@ body {
 /* Authors */
 .authors li {
   margin-bottom: 12px;
+  cursor: pointer;
 }
 
 /* Post */

@@ -4,6 +4,7 @@
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
+  optAuthorListSelector = '.authors',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
   optCloudClassCount = '4',
@@ -72,10 +73,24 @@ function tagClickHandler(event){
 }
 
 /* Tag Calculate Class */
-function calculateTagsClass(count, params){
+function calculateTagsClass(count, params) {
   const classNumber = Math.floor( ( (count - params.min) / (params.max - params.min) ) * optCloudClassCount + 1 );
   const resultTagsClass = optCloudClassPrefix + classNumber;
   return(resultTagsClass);
+}
+
+/* Tags Params Calculate */
+function calculateTagsParams(tags){
+  const params = {max:0, min:999999};
+  for (let tag in tags){
+    if(params.max < tags[tag]){
+      params.max = tags[tag];
+    }
+    if(params.min > tags[tag]){
+      params.min = tags[tag];
+    }
+  }
+  return params;
 }
 
 /* Tags Generate */
@@ -123,13 +138,14 @@ function authorClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
   let author = clickedElement.textContent;
-  console.log(author);
-  generateTitleLinks('[data-author="' + author + '"]');
+  const listAuthorName = author.split(' ');
+  generateTitleLinks('[data-author="' + listAuthorName[0] + (' ') + listAuthorName[1] + '"]');
   titleClickListener();
 }
 
 /* Author Generate */
 function generateAuthor(){
+  let allAuthors = {};
   const articles = document.querySelectorAll(optArticleSelector);
   for (let article of articles){
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
@@ -137,28 +153,28 @@ function generateAuthor(){
     let articleAuthor = article.getAttribute('data-author');
     const authorHTML = `<p class="post-author">${articleAuthor}</p>`;
     html = html + authorHTML;
+    if(!Object.prototype.hasOwnProperty.call(allAuthors, articleAuthor)){
+      allAuthors[articleAuthor] = 1;
+    }
+    else {
+      allAuthors[articleAuthor]++;
+    }
     authorWrapper.innerHTML = html;
   }
+  const authorList = document.querySelector(optAuthorListSelector);
+  let allAuthorsHTML = '';
+  for(let articleAuthor in allAuthors){
+    const authorLinkHTML = `<li><a class="author-name">${articleAuthor} (${allAuthors[articleAuthor]})</a></li>`;
+    allAuthorsHTML += authorLinkHTML;
+  }
+  authorList.innerHTML = allAuthorsHTML;
 }
+
 
 generateAuthor();
 
 /* Author Click Listener */
-const links = document.querySelectorAll(optArticleAuthorSelector);
+const links = document.querySelectorAll('.post-author, .authors a');
 for(let link of links){
   link.addEventListener('click', authorClickHandler);
-}
-
-/* Tags Params Calculate */
-function calculateTagsParams(tags){
-  const params = {max:0, min:999999};
-  for (let tag in tags){
-    if(params.max < tags[tag]){
-      params.max = tags[tag];
-    }
-    if(params.min > tags[tag]){
-      params.min = tags[tag];
-    }
-  }
-  return params;
 }
