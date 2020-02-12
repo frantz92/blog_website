@@ -2,18 +2,14 @@
                                               /* Code Options Section */
 /* Variables */
 const opts = {
-  tagSizes: {
-    count: 4,   // nie działa opts.tagSizes.count w 117 linii
-    cloudClassPrefix: 'tag-size-',
-  },
-
   articleSelector: '.post',
   titleSelector: '.post-title',
   titleListSelector: '.titles',
   authorListSelector: '.authors',
   articleTagsSelector: '.post-tags .list',
   articleAuthorSelector: '.post-author',
-
+  cloudClassCount: '4',
+  cloudClassPrefix: 'tag-size-',
 };
                                               /* Titles Section */
 /* Title Click Handler */
@@ -114,7 +110,7 @@ function tagClickListener() {
 tagClickListener();
 /* Tag Calculate Class */
 function calculateTagsClass(count, params) {
-  const classNumber = Math.floor( ( (count - params.min) / (params.max - params.min) ) * opts.tagSizes.count + 1 );   // nie działa opts.tagSizes.count
+  const classNumber = Math.floor( ( (count - params.min) / (params.max - params.min) ) * opts.cloudClassCount + 1 );
   const resultTagsClass = opts.cloudClassPrefix + classNumber;
   return(resultTagsClass);
 }
