@@ -174,7 +174,7 @@ function generateAuthor(){
 generateAuthor();
 
 /* Author Click Listener */
-const links = document.querySelectorAll('.post-author, .authors a');
+const links = document.querySelectorAll(optArticleAuthorSelector, '.authors a');
 for(let link of links){
   link.addEventListener('click', authorClickHandler);
 }
