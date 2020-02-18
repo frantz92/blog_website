@@ -208,9 +208,7 @@
     <script id="template-tag-link" type="text/x-handlebars-template">
       <li><a href="#tag-{{ id }}"><span>{{ id }}</span></a></li>
     </script>
-    <script id="template-author-link" type="text/x-handlebars-template">
-      <p class="post-author">{{ id }}</p>
-    </script>
+    <script id="template-author-link" type="text/x-handlebars-template">{{ id }}</script>
     <script id="tag-cloud-link" type="text/x-handlebars-template">
       {{#each tags}}
         <li><a class="{{ className }}" href="#tag-{{ tag }}">{{ tag }}</a></li>

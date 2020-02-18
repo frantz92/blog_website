@@ -1,5 +1,5 @@
 'use strict';
-                                              /* Code Options Section */
+/*-------------------------------------------------------Code Options Section */
 /* Handlebars */
 const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
@@ -19,7 +19,7 @@ const opts = {
   cloudClassCount: '4',
   cloudClassPrefix: 'tag-size-',
 };
-                                              /* Titles Section */
+/*-------------------------------------------------------------Titles Section */
 /* Title Click Handler */
 function titleClickHandler(event){
   event.preventDefault();
@@ -60,7 +60,7 @@ function titleClickListener() {
   }
 }
 titleClickListener();
-                                              /* Tags Section */
+/*---------------------------------------------------------------Tags Section */
 /* Tag Click Handler */
 function tagClickHandler(event){
   event.preventDefault();
@@ -142,15 +142,15 @@ function calculateTagsParams(tags){
   return params;
 }
 calculateTagsParams();
-                                              /* Authors Section */
+/*------------------------------------------------------------Authors Section */
 /* Author Click Handler */
 function authorClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
   let author = clickedElement.textContent;
+  console.log(author);//confirmation of removing the error
   const listAuthorName = author.split(' ');
   generateTitleLinks('[data-author="' + listAuthorName[0] + (' ') + listAuthorName[1] + '"]');
-  console.log('[data-author="' + listAuthorName[0] + (' ') + listAuthorName[1] + '"]');
   titleClickListener();
 }
 /* Author Generate */
@@ -161,7 +161,6 @@ function generateAuthor(){
     const authorWrapper = article.querySelector(opts.articleAuthorSelector);
     let html = '';
     let articleAuthor = article.getAttribute('data-author');
-    //const authorHTML = `<p class="post-author">${articleAuthor}</p>`;
     const authorHTMLData = {id: articleAuthor};
     const authorHTML = templates.authorLink(authorHTMLData);
     html = html + authorHTML;
