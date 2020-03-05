@@ -165,7 +165,7 @@
       const authorHTMLData = {id: articleAuthor};
       const authorHTML = templates.authorLink(authorHTMLData);
       html = html + authorHTML;
-      if(!Object.prototype.hasOwnProperty.call(allAuthors, articleAuthor)){
+      if(!allAuthors[articleAuthor]){
         allAuthors[articleAuthor] = 1;
       }
       else {
